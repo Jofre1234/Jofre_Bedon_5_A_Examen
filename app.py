@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import pytest
+import sys
 
 app = Flask(__name__)
 
@@ -40,8 +41,8 @@ def run_tests():
 
 
 if __name__ == '__main__':
-    import sys
     if "test" in sys.argv:
         run_tests()  # Ejecuta las pruebas con: python app.py test
     else:
-        app.run(debug=True, host='0.0.0.0', port=5000)
+        # CAMBIO REALIZADO: Puerto 1002
+        app.run(debug=True, host='0.0.0.0', port=1002)
