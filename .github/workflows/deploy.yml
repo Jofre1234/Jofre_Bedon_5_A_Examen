@@ -20,7 +20,7 @@ jobs:
     # PEQUEÑA MODIFICACIÓN: La variable IMAGE_NAME con 'lower()' se ha eliminado de aquí
     env:
       REGISTRY: ghcr.io
-      IMAGE_TAG: 1.0.0 
+      IMAGE_TAG: latest 
 
     steps:
     - uses: actions/checkout@v4
