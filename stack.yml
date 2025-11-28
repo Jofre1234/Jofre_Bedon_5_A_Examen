@@ -20,7 +20,7 @@ services:
         - "traefik.http.routers.jofre-app-secure.tls=true"
         - "traefik.http.routers.jofre-app-secure.tls.certresolver=http"
         - "traefik.http.routers.jofre-app-secure.service=jofre-app"
-        - "traefik.http.services.jofre-app.loadbalancer.server.port=5000"
+        - "traefik.http.services.jofre-app.loadbalancer.server.port=1002"
         - "traefik.docker.network=traefik-public"
     networks:
       - traefik-public

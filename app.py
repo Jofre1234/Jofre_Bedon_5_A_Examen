@@ -44,4 +44,4 @@ if __name__ == '__main__':
     if "test" in sys.argv:
         run_tests()  # Ejecuta las pruebas con: python app.py test
     else:
-        app.run(debug=True, host='0.0.0.0', port=5000)
+        app.run(debug=True, host='0.0.0.0', port=1002)
