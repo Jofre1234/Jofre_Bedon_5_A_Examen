@@ -9,13 +9,13 @@ services:
 
       # Redirección HTTP → HTTPS
       - "traefik.http.routers.jofre-app.entrypoints=http"
-      - "traefik.http.routers.jofre-app.rule=Host(`jofre.byronrm.com`)"
+      - "traefik.http.routers.jofre-app.rule=Host(`trabajoII.byronrm.com`)"
       - "traefik.http.middlewares.jofre-app-https-redirect.redirectscheme.scheme=https"
       - "traefik.http.routers.jofre-app.middlewares=jofre-app-https-redirect"
 
       # Router HTTPS seguro
       - "traefik.http.routers.jofre-app-secure.entrypoints=https"
-      - "traefik.http.routers.jofre-app-secure.rule=Host(`jofre.byronrm.com`)"
+      - "traefik.http.routers.jofre-app-secure.rule=Host(`trabajoII.byronrm.com`)"
       - "traefik.http.routers.jofre-app-secure.tls=true"
       - "traefik.http.routers.jofre-app-secure.tls.certresolver=http"
       - "traefik.http.routers.jofre-app-secure.service=jofre-app"
