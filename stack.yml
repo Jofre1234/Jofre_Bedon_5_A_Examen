@@ -2,26 +2,34 @@ version: '3.9'
 
 services:
   jofre-app:
-    image: ghcr.io/jofre1234/jofre_bed-n_5to_a:1.0.0 
+    image: ghcr.io/jofre1234/jofre_bed-n_5to_a:latest
+    # 1. Las labels se mueven aquí para Docker Compose normal
+    labels:
+      - "traefik.enable=true"
+      # Router HTTP (redirección)
+      - "traefik.http.routers.jofre-app.entrypoints=http"
+      - "traefik.http.routers.jofre-app.rule=Host(`jofre.byronrm.com`)"
+      - "traefik.http.middlewares.jofre-app-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.jofre-app.middlewares=jofre-app-https-redirect"
+      # Router HTTPS
+      - "traefik.http.routers.jofre-app-secure.entrypoints=https"
+      - "traefik.http.routers.jofre-app-secure.rule=Host(`jofre.byronrm.com`)"
+      - "traefik.http.routers.jofre-app-secure.tls=true"
+      # Asegúrate que tu traefik.toml tenga un resolver llamado "http"
+      - "traefik.http.routers.jofre-app-secure.tls.certresolver=http" 
+      - "traefik.http.routers.jofre-app-secure.service=jofre-app"
+      # El puerto coincide con tu app.py (1002). ¡Correcto!
+      - "traefik.http.services.jofre-app.loadbalancer.server.port=1002"
+      - "traefik.docker.network=traefik-public"
+
+    # El bloque deploy se mantiene para límites de recursos (opcional en compose)
     deploy:
       replicas: 1
       resources:
         limits:
           cpus: "0.50"
           memory: 512M
-      labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.jofre-app.entrypoints=http"
-        - "traefik.http.routers.jofre-app.rule=Host(`moreno.byronrm.com`)"
-        - "traefik.http.middlewares.jofre-app-https-redirect.redirectscheme.scheme=https"
-        - "traefik.http.routers.jofre-app.middlewares=jofre-app-https-redirect"
-        - "traefik.http.routers.jofre-app-secure.entrypoints=https"
-        - "traefik.http.routers.jofre-app-secure.rule=Host(`moreno.byronrm.com`)"
-        - "traefik.http.routers.jofre-app-secure.tls=true"
-        - "traefik.http.routers.jofre-app-secure.tls.certresolver=http"
-        - "traefik.http.routers.jofre-app-secure.service=jofre-app"
-        - "traefik.http.services.jofre-app.loadbalancer.server.port=1002"
-        - "traefik.docker.network=traefik-public"
+    
     networks:
       - traefik-public
 
