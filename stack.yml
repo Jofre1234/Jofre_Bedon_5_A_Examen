@@ -2,28 +2,19 @@ version: '3.9'
 
 services:
   jofre-app:
-    image: ghcr.io/jofre1234/jofre_bedon_5_a_examen:1.0.0
+    image: jofre1234/jofre_bedon_5_a_examen:1.0.0
     labels:
-      # Habilitar Traefik
       - "traefik.enable=true"
-
-      # Redirección HTTP → HTTPS
       - "traefik.http.routers.jofre-app.entrypoints=http"
       - "traefik.http.routers.jofre-app.rule=Host(`trabajoII.byronrm.com`)"
       - "traefik.http.middlewares.jofre-app-https-redirect.redirectscheme.scheme=https"
       - "traefik.http.routers.jofre-app.middlewares=jofre-app-https-redirect"
-
-      # Router HTTPS seguro
       - "traefik.http.routers.jofre-app-secure.entrypoints=https"
       - "traefik.http.routers.jofre-app-secure.rule=Host(`trabajoII.byronrm.com`)"
       - "traefik.http.routers.jofre-app-secure.tls=true"
       - "traefik.http.routers.jofre-app-secure.tls.certresolver=http"
       - "traefik.http.routers.jofre-app-secure.service=jofre-app"
-
-      # Puerto interno donde escucha Flask
       - "traefik.http.services.jofre-app.loadbalancer.server.port=1002"
-
-      # Indicar red de Traefik
       - "traefik.docker.network=traefik-public"
 
     deploy:
