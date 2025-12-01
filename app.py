@@ -6,7 +6,7 @@ app = Flask(__name__)
 # Ruta principal
 @app.route('/')
 def hello_world():
-    return "¡Hola! Mi prueba final Jofre Bedón!"
+    return "¡Hola me llamo Jofre Bedón!"
 
 # Ruta mínima de IA
 @app.route('/ai', methods=['POST'])
@@ -45,3 +45,5 @@ if __name__ == '__main__':
         run_tests()  # Ejecuta las pruebas con: python app.py test
     else:
         app.run(debug=True, host='0.0.0.0', port=5000)
+
+### Explicación del código:
